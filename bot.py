@@ -6,7 +6,7 @@ from schoolTXT import *
 from url import *
 from teachers import *
 
-token = '''5729042421:AAFP6rQsLDowZ7a4HsEziWK8aRx8X4ZkIkQ'''
+token = ''''''
 bot=telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
