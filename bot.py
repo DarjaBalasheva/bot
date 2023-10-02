@@ -5,9 +5,12 @@ from coursesTXT import *
 from schoolTXT import *
 from url import *
 from teachers import *
-import configs
+from os import environ
+from dotenv import load_dotenv
 
-token = configs.BOT_TOKEN
+load_dotenv()
+
+token = environ['BOT_TOKEN']
 bot=telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
