@@ -5,8 +5,9 @@ from coursesTXT import *
 from schoolTXT import *
 from url import *
 from teachers import *
+import configs
 
-token = ''''''
+token = configs.BOT_TOKEN
 bot=telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
