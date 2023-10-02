@@ -100,6 +100,6 @@ def callback_inline(call):
     bot.send_message(call.message.chat.id, 'Информация отправлена Даше, она свяжется с тобой в ближайшее время')
   elif call.data == 'bad':
     bot.send_message(call.message.chat.id, 'Напиши сообщение заново')
-#  bot.send_message(message.chat.id,'''you choose: '''+message.text+'''confirm?\n/confirm''')
+
 
 bot.infinity_polling()
