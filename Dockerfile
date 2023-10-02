@@ -5,17 +5,14 @@ WORKDIR /code
 # Установка зависимостей для компиляции пакетов
 RUN apt-get update && apt-get install -y build-essential
 
-#Установка pipenv
-RUN pip install pipenv
-
 # Копирование Pipfile и Pipfile.lock
-COPY Pipfile Pipfile.lock ./
+COPY requirements.txt ./
 
 # Установка зависимостей с помощью pipenv
-RUN pipenv install --system --deploy
+RUN pip3 install -r requirements.txt 
 
 #
 COPY . .
 
 #
-CMD gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+CMD python3 bot.py
