@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-token = environ['BOT_TOKEN']
+token = environ['BOT_TOKEN'] #Token
 bot=telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
