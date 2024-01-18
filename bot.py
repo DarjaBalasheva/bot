@@ -13,10 +13,17 @@ load_dotenv()
 token = environ['BOT_TOKEN'] #Token
 bot=telebot.TeleBot(token)
 
+
 @bot.message_handler(commands=['start'])
 def start_message(message):
+  print(message)
   bot.send_message(message.chat.id, startMessage)
-  bot.send_message(1124334301, 'Бота просматривает\ntg://user?id=' + str(message.chat.id))
+  try:
+    username = message.from_user.username
+    bot.send_message(1124334301, 'Бота просматривает\n'+'@'+username)
+  except:
+    bot.send_message(1124334301, 'Бота просматривает\ntg://user?id=' + str(message.chat.id))
+
 
 @bot.message_handler(commands=['help'])
 def help_message(message):
@@ -73,13 +80,13 @@ def sendapp_message(message):
 
 @bot.message_handler(commands=['roma'])
 def roma_message(message):
-  photoRoma = open('/root/telebotTeeIT/Photo/Roma.jpg', 'rb')
+  photoRoma = open('Roma.jpg', 'rb')
   bot.send_photo(message.chat.id, photoRoma)
   bot.send_message(message.chat.id, teacherRomaMessage, parse_mode='MarkdownV2', disable_web_page_preview=True)
 
 @bot.message_handler(commands=['dasha'])
 def dasha_message(message):
-  photoDasha = open('/root/telebotTeeIT/Photo/Dasha.jpg', 'rb')
+  photoDasha = open('Dasha.jpg', 'rb')
   bot.send_photo(message.chat.id, photoDasha)
   bot.send_message(message.chat.id,teacherDashaMessage, parse_mode='MarkdownV2', disable_web_page_preview=True)
 
@@ -95,8 +102,16 @@ def text_message(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
+  print(call)
+  message_id = call.message.message_id
+  bot.delete_message(chat_id=call.message.chat.id, message_id=message_id)
   if call.data == 'good':
-    bot.send_message(1124334301, str(info)+ '\ntg://user?id=' + str(call.message.chat.id))
+    try:
+      username = call.from_user.username
+      bot.send_message(1124334301, str(info)+'\n@'+ username)
+    except:
+      bot.send_message(1124334301, str(info)+ '\ntg://user?id=' + str(call.message.chat.id))
+
     bot.send_message(call.message.chat.id, 'Информация отправлена Даше, она свяжется с тобой в ближайшее время')
   elif call.data == 'bad':
     bot.send_message(call.message.chat.id, 'Напиши сообщение заново')
